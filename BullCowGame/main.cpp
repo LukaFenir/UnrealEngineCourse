@@ -6,10 +6,10 @@ using namespace std;
 //YOLO SWAG
 
 //Introduce the game
-void PrintIntro(int WordLength) {
-	
+void PrintIntro() {
+	constexpr int WORD_LENGTH = 4;
 	cout << "Welcome to Bulls and Cows, a boring word game.\n"
-		<< "Can you guess the " << WordLength << " letter isogram I'm thinking of?\n";
+		<< "Can you guess the " << WORD_LENGTH << " letter isogram I'm thinking of?\n";
 	return;
 }
 
@@ -27,13 +27,35 @@ void PrintGuess(string GuessIn) {
 	return;
 }
 
+bool WillPlayAgain() {
+	cout << "Play again? y/n \n";
+	string Response = "";
+	getline(cin, Response);
+	if (Response[0] == 'y' || Response[0] == 'Y') {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void PlayGame() {
+	constexpr int TURNS = 5;
+	for (int i = 0; i < TURNS; i++) {
+		string Guess = GetGuess();
+		PrintGuess(Guess);
+	}
+}
+
 //Entry point for application
 int main() {
-	constexpr int NUM = 4;
+	bool bPlayAgain = false;
 	//introduce the game
-	PrintIntro(NUM);
-	for (int i = 0; i <= NUM; i++) {
-		PrintGuess(GetGuess());
-	}
+	PrintIntro();
+	do {
+		PlayGame();
+		bPlayAgain = WillPlayAgain();
+	} while (bPlayAgain);
+	
 	return 0;
 }
