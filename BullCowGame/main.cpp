@@ -1,48 +1,45 @@
 #include <iostream>
 #include <string>
-
-using namespace std;
+#include "FBullCowGame.h"
 
 //YOLO SWAG
 
 //Introduce the game
 void PrintIntro() {
 	constexpr int WORD_LENGTH = 4;
-	cout << "Welcome to Bulls and Cows, a boring word game.\n"
+	std::cout << "Welcome to Bulls and Cows, a boring word game.\n"
 		<< "Can you guess the " << WORD_LENGTH << " letter isogram I'm thinking of?\n";
 	return;
 }
 
 //Get guess from user in cmd line
-string GetGuess() {
-	string Guess = "";
-	cout << "Enter your guess: ";
-	getline(cin, Guess);
+std::string GetGuess() {
+	std::string Guess = "";
+	std::cout << "Enter your guess: ";
+	std::getline(std::cin, Guess);
 	return Guess;
 }
 
 //Repeat guess back to them
-void PrintGuess(string GuessIn) {
-	cout << "You guessed: " << GuessIn << "\n";
+void PrintGuess(std::string GuessIn) {
+	std::cout << "You guessed: " << GuessIn << "\n";
 	return;
 }
 
 bool WillPlayAgain() {
-	cout << "Play again? y/n \n";
-	string Response = "";
-	getline(cin, Response);
-	if (Response[0] == 'y' || Response[0] == 'Y') {
-		return true;
-	}
-	else {
-		return false;
-	}
+	std::cout << "Play again? y/n \n";
+	std::string Response = "";
+	std::getline(std::cin, Response);
+	return (Response[0] == 'y' || Response[0] == 'Y');
 }
 
 void PlayGame() {
-	constexpr int TURNS = 5;
-	for (int i = 0; i < TURNS; i++) {
-		string Guess = GetGuess();
+	FBullCowGame BCGame; //instantiate a new game
+	int MaxTries = BCGame.GetMaxTries();
+	std::cout << MaxTries << std::endl;
+
+	for (int i = 0; i < MaxTries; i++) {
+		std::string Guess = GetGuess();
 		PrintGuess(Guess);
 	}
 }
