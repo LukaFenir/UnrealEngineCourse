@@ -4,6 +4,8 @@
 
 //YOLO SWAG
 
+FBullCowGame BCGame; //instantiate a new game
+
 //Introduce the game
 void PrintIntro() {
 	constexpr int WORD_LENGTH = 4;
@@ -15,6 +17,7 @@ void PrintIntro() {
 //Get guess from user in cmd line
 std::string GetGuess() {
 	std::string Guess = "";
+	//ask user for guess
 	std::cout << "Enter your guess: ";
 	std::getline(std::cin, Guess);
 	return Guess;
@@ -23,6 +26,8 @@ std::string GetGuess() {
 //Repeat guess back to them
 void PrintGuess(std::string GuessIn) {
 	std::cout << "You guessed: " << GuessIn << "\n";
+	int CurrentTry = BCGame.GetCurrentTry();
+	std::cout << "Try " << CurrentTry << "\n";
 	return;
 }
 
@@ -34,14 +39,19 @@ bool WillPlayAgain() {
 }
 
 void PlayGame() {
-	FBullCowGame BCGame; //instantiate a new game
+	BCGame.Reset();
 	int MaxTries = BCGame.GetMaxTries();
 	std::cout << MaxTries << std::endl;
 
+	//TODO Make valid guess checker
 	for (int i = 0; i < MaxTries; i++) {
+
+		//Submit value guess to the game
+		//Return bulls/cows
 		std::string Guess = GetGuess();
 		PrintGuess(Guess);
 	}
+	//TODO Summarise game at the end
 }
 
 //Entry point for application
