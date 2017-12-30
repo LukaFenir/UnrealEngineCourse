@@ -1,26 +1,46 @@
 #pragma once
 #include <string>
 
-//DO NOT use "using" in a header file
+using FString = std::string;
+using int32 = int;
+
+//DO NOT use "using namespace" in a header file
+
+//all values initialised to 0
+struct FBullCowCount {
+	int32 Bulls = 0;
+	int32 Cows = 0;
+};
+
+enum class EGuessStatus {
+	Invalid_Status,
+	OK,
+	Not_Isogram,
+	Wrong_Length,
+	Not_Lowercase
+};
 
 class FBullCowGame {
 
 public:
 	FBullCowGame(); //constructor
 
-	int GetMaxTries() const;
-	int GetCurrentTry() const;
+	int32 GetMaxTries() const;
+	int32 GetCurrentTry() const;
+	int32 GetWordLength() const; //Was an EXTRA
 	bool IsGameWon() const;
+	EGuessStatus IsGuessValid(FString) const;
 
 	void Reset(); //TODO return value
-	bool IsGuessValid(std::string s); //TODO return value
-	//provide method for counting bulls/cows and incrementing turn number
 
+	FBullCowCount submitGuess(FString);
+
+	
 
 // ^^ Ignore private things. Focus on above interface
 private:
 	//initialised in constructor
-	int CurrentTry;
-	int MaxTries;
-	
+	int32 CurrentTry;
+	int32 MaxTries;
+	FString HiddenWord;
 };
