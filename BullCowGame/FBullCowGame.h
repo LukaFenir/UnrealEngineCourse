@@ -33,7 +33,7 @@ public:
 
 	void Reset(); //TODO return value
 
-	FBullCowCount submitGuess(FString);
+	FBullCowCount SubmitValidGuess(FString);
 
 	
 
@@ -43,4 +43,5 @@ private:
 	int32 CurrentTry;
 	int32 MaxTries;
 	FString HiddenWord;
+	bool bGameIsWon;
 };
