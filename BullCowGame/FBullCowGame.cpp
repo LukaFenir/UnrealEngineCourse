@@ -1,4 +1,6 @@
 #include "FBullCowGame.h"
+#include <map>
+#define TMap std::map
 
 using FText = std::string;
 using int32 = int;
@@ -12,15 +14,14 @@ int32 FBullCowGame::GetCurrentTry() const { return CurrentTry; }
 int32 FBullCowGame::GetWordLength() const { return HiddenWord.length(); }
 bool FBullCowGame::IsGameWon() const { return FBullCowGame::bGameIsWon; }
 
-
 EGuessStatus FBullCowGame::IsGuessValid(FString Guess) const { 
 	if (false) {
 		return EGuessStatus::Invalid_Status;
 	}
-	else if (false) {//TODO If guess isn't isogram, error
+	else if (!FBullCowGame::IsIsogram(Guess)) {//If guess isn't isogram, error
 		return EGuessStatus::Not_Isogram;
 	}
-	else if (false) {//TODO If guess isn't lowercase, error
+	else if (!FBullCowGame::IsLowerCase(Guess)) {//TODO If guess isn't lowercase, error
 		return EGuessStatus::Not_Lowercase;
 	}
 	else if (Guess.length() != HiddenWord.length()) {//TODO If guess length is wrong, error
@@ -29,9 +30,6 @@ EGuessStatus FBullCowGame::IsGuessValid(FString Guess) const {
 	else { //Otherwise, all fine
 		return EGuessStatus::OK;
 	}
-	
-	
-	 //TODO Make actual error
 }
 
 
@@ -77,5 +75,31 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess) {
 		bGameIsWon = true;
 	}
 	return BullCowCount;
+}
+
+bool FBullCowGame::IsIsogram(FString Word) const {
+	//Treat 0 or 1 letter words as isogram
+	if (Word.length() <= 1) { return true; }
+
+	TMap<char, bool> LetterSeen;
+	for (auto Letter : Word) { //For all letters of the word#
+		Letter = tolower(Letter);
+		if (LetterSeen[Letter]) {
+			return false;
+		}
+		else {
+			LetterSeen[Letter] = true;
+		}
+	}
+	return true; //In cases where \0 is entered
+}
+
+bool FBullCowGame::IsLowerCase(FString Word) const {
+	for (auto Letter : Word) {
+		if (Letter != tolower(Letter)) {
+			return false;
+		}
+	}
+	return true;
 }
 
