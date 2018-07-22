@@ -13,9 +13,11 @@ using int32 = int;
 
 //YOLO SWAG
 
-FBullCowGame BCGame; //instantiate a new game
+FBullCowGame BCGame;
 
-//Introduce the game
+/*
+	Introduce the game
+*/
 void PrintIntro() {
 	std::cout << "Welcome to Bulls and Cows, a boring word game.\n"
 		<< "             .=     ,        =.\n"
@@ -40,12 +42,16 @@ void PrintIntro() {
 	return;
 }
 
-//Loop until user enters valid guess
+/*
+	Ask for and get user input
+	Check for validity and display potential error
+	Loop until user enters valid guess
+*/
 FText GetValidGuess() {
 	//Ask user for guess
 	EGuessStatus Status = EGuessStatus::Invalid_Status;
 	FText Guess = "";
-	std::cout << BCGame.GetMaxTries()-BCGame.GetCurrentTry() << " lives left.  " 
+	std::cout << "Try " << BCGame.GetCurrentTry() << " of " << BCGame.GetMaxTries() << ". "
 		<< "Enter your guess: ";
 	do {
 		//Get user guess
@@ -72,7 +78,9 @@ FText GetValidGuess() {
 	return Guess;
 }
 
-//Repeat guess back to them
+/*
+	Echo guess back to them
+*/
 void PrintCurrentTry(FText GuessIn) {
 	std::cout << "You guessed: " << GuessIn << "\n";
 
@@ -81,6 +89,9 @@ void PrintCurrentTry(FText GuessIn) {
 	return;
 }
 
+/*
+	Ask user if they'll play again
+*/
 bool WillPlayAgain() {
 	std::cout << "Try to guess this word again? y/n \n";
 	FText Response = "";
@@ -88,9 +99,12 @@ bool WillPlayAgain() {
 	return (Response[0] == 'y' || Response[0] == 'Y');
 }
 
+/*
+	Print whether they won or lost the game
+*/
 void PrintGameEnd() {
 	if (BCGame.IsGameWon()) {
-		std::cout << "CONGRATS! You did *burp* it!\n";
+		std::cout << "CONGRATS! You did- *burp* -it!\n";
 	}
 	else {
 		std::cout << "Woops! You ran out of tries. Better luck next time, dummy!\n";
@@ -98,10 +112,12 @@ void PrintGameEnd() {
 	return;
 }
 
+/*
+	Setup and run the game
+*/
 void PlayGame() {
 	BCGame.Reset();
 	int32 MaxTries = BCGame.GetMaxTries();
-	//ask for guesses while game isn't WON and there are tries remaining
 	while ((!BCGame.IsGameWon()) && (BCGame.GetCurrentTry() <= MaxTries)){
 
 			//Submit value guess to the game & return bulls/cows count
@@ -116,12 +132,13 @@ void PlayGame() {
 
 
 
-//Entry point for application
+/*
+	Entry point for application
+*/
 int main() {
 
 	bool bPlayAgain = false;
 
-	//introduce the game
 	PrintIntro();
 
 	do {

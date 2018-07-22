@@ -5,11 +5,12 @@
 using FText = std::string;
 using int32 = int;
 
+//Default constructor
 FBullCowGame::FBullCowGame() {
 	Reset();
 }
 
-int32 FBullCowGame::GetMaxTries() const { return MaxTries; }
+
 int32 FBullCowGame::GetCurrentTry() const { return CurrentTry; }
 int32 FBullCowGame::GetWordLength() const { return HiddenWord.length(); }
 bool FBullCowGame::IsGameWon() const { return FBullCowGame::bGameIsWon; }
@@ -32,16 +33,23 @@ EGuessStatus FBullCowGame::IsGuessValid(FString Guess) const {
 	}
 }
 
-
+int32 FBullCowGame::GetMaxTries() const { 
+	TMap<int32, int32> WordLengthToMaxTries{
+		{ 3,4 },
+		{ 4,7 },
+		{ 5,10 },
+		{ 6,15 },
+		{ 7,20 }
+	};
+	return WordLengthToMaxTries[HiddenWord.length()]; 
+}
 
 
 void FBullCowGame::Reset() {
-	constexpr int32 MAX_TRIES = 8;
-	const FString HIDDEN_WORD = "plan";
+	const FString HIDDEN_WORD = "planet";
 
-	CurrentTry = 0;
+	CurrentTry = 1;
 	HiddenWord = HIDDEN_WORD;
-	MaxTries = MAX_TRIES;
 	bGameIsWon = false;
 
 	return;
